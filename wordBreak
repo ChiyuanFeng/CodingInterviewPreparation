@@ -1,0 +1,36 @@
+// solution 1
+public class Solution {
+    /**
+     * @param s: A string s
+     * @param dict: A dictionary of words dict
+     */
+    //This method work, but it exceeds time limitation, and this is strictly not DP, so I will 
+    //try another alforithmn
+    public boolean wordBreak(String s, Set<String> dict) {
+        // write your code here   
+        if(s == null || s.length() == 0)
+            return true;
+        if(dict == null)
+            return false;
+        boolean[][] table = new boolean[s.length()][s.length()];
+        return helper(0, s.length() - 1, table, s, dict);
+    }
+    
+    private boolean helper(int start, int end, boolean[][] table, String s, Set<String> dict){
+        if(table[start][end] == true)
+            return true;
+        if(dict.contains(s.substring(start, end + 1))){
+            table[start][end] = true;
+            return true;
+        }
+        for(int i = start; i < end; i++){
+            if(helper(start, i, table, s, dict) && helper(i + 1, end, table, s, dict)){
+                table[start][end] = true;
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+//solution 2

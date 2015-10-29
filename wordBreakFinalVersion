@@ -1,0 +1,31 @@
+public class Solution {
+    /**
+     * @param s: A string s
+     * @param dict: A dictionary of words dict
+     */
+    public boolean wordBreak(String s, Set<String> dict) {
+        // write your code here   
+        if(s == null || s == "")
+            return true;
+        if(dict == null || dict.size() == 0)
+            return false;
+        boolean[] table = new boolean[s.length() + 1];
+        table[0] = true;
+        int maxLength = 0;
+        for(String str : dict){
+            maxLength = Math.max(str.length(), maxLength);
+        }
+        for(int i = 1; i <= s.length(); i++){
+            for(int lastWordLength = 1; lastWordLength <= maxLength && lastWordLength <= i; lastWordLength++){
+                if(!table[i - lastWordLength])
+                    continue;
+                if(dict.contains(s.substring(i - lastWordLength,i))){
+                    table[i] = true;
+                    break;
+                }
+            }
+        }
+        return table[table.length - 1];
+    }
+}
+

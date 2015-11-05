@@ -1,0 +1,26 @@
+public class Solution {
+    /**
+     * Determine whether s3 is formed by interleaving of s1 and s2.
+     * @param s1, s2, s3: As description.
+     * @return: true or false.
+     */
+    public boolean isInterleave(String s1, String s2, String s3) {
+        // write your code here
+        
+        for(int i = 0; i < s3.length(); i++){
+            char temp = s3.charAt(i);
+            if(s1.charAt(0) == temp && s1 != null && s1.length() != 0){
+                if(s1.length() > 1){
+                    s1 = s1.substring(1, s1.length());
+                }else{
+                    s1 = null;
+                }
+            }else if(s2.charAt(0) == temp){
+                s2 = s2.substring(1, s2.length());
+            }else{
+                return false;
+            }
+        }
+        return true;
+    }
+}
